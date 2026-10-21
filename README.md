@@ -1,6 +1,6 @@
 # Orthotrack
 
-A complete, responsive Next.js landing page for visitors arriving from public-space QR codes. Brand colours, logo, imagery, product construction, and specifications are based on the supplied Orthotrack catalogue.
+A complete, responsive Next.js landing page for visitors arriving from public-space QR codes. Brand colours, logo, imagery, product construction, and specifications are based on the supplied Orthotrack catalogue. A winding, textured track connects six guided chapters; GSAP ScrollTrigger expands the supplied video, draws the route as visitors scroll, and updates the progress navigation.
 
 ## Run locally
 
@@ -37,9 +37,9 @@ All starting images are WebP crops of the provided catalogue; they illustrate th
 - `public/images/logo.webp`: catalogue logo. Replace with a clean high-resolution logo or SVG and update `BrandLogo` if available.
 - `public/media/`: add your `.mp4` or `.webm` files here.
 
-To add a muted looping hero video, set `media.hero.video` to `/media/hero.mp4`. The current hero image remains the video poster. To replace the three-scene visual story with a real brand film, set `media.story.video` to `/media/orthotrack-story.mp4`. It will open in the same accessible dialog with native video controls. Until then, the story is explicitly labelled as a visual preview and has working play/pause and scene controls.
+The supplied ten-second, 1280 × 720 film has been optimised from 12.1 MB to 4.9 MB and is installed at `public/media/orthotrack-motion.mp4`. It sits directly below the hero, slightly overlaps it, and expands from a framed preview to the full page width with GSAP ScrollTrigger. It loops silently when visible and pauses outside the viewport. Visitors can pause it or open a separate player with native controls. Reduced-motion preferences disable autoplay and scroll expansion. Replace this file to update the film; the component is `ExpandingFilm` in `src/components/scroll-experience.tsx`.
 
-The section components live in `src/components/landing-page.tsx`. Styling is in `src/app/globals.css`; reusable shadcn-style Button, Dialog, and Accordion primitives are in `src/components/ui/`, using Radix UI for focus management, keyboard navigation, and dialogs.
+The existing section components live in `src/components/landing-page.tsx`. The new chapter navigation, winding track, expanding film, cushioning demo, anatomy journey, and durability explorer live in `src/components/scroll-experience.tsx`. Base styling is in `src/app/globals.css`, and the sports-themed redesign is in `src/app/experience.css`. Reusable shadcn-style Button, Dialog, and Accordion primitives are in `src/components/ui/`, using Radix UI for focus management, keyboard navigation, and dialogs.
 
 Open Sans is bundled locally through `@fontsource/open-sans`; the page does not request fonts from Google.
 
@@ -60,7 +60,7 @@ Set `brand.email` in `src/lib/content.ts` to a verified address to enable a pref
 
 ## Content approach
 
-Copy prioritises everyday comfort, a welcoming walking routine, and the value of thoughtfully designed shared spaces. The catalogue's six-layer construction and 15 mm SBR cushion are included. Unverified health improvement percentages, guaranteed injury prevention, service-life claims, and unestablished test values are not used as proven marketing claims. The original catalogue is available as a download for technical review.
+Copy prioritises cushioning, knee comfort, the benefits of regular movement, and care over time. The catalogue's six-layer construction and 15 mm SBR cushion are included. The interactive underfoot demo is labelled as an illustration of the construction principle, rather than measured impact data. General physical activity benefits are supported by the [WHO physical activity factsheet](https://www.who.int/news-room/fact-sheets/detail/physical-activity), linked from the health chapter. Unverified health improvement percentages, guaranteed injury prevention, zero-damage promises, service-life claims, and unestablished test values are not used as proven marketing claims. The original catalogue is available as a download for technical review.
 
 ## Accessibility and interaction
 
@@ -72,4 +72,4 @@ Copy prioritises everyday comfort, a welcoming walking routine, and the value of
 
 ## Stack
 
-Next.js App Router, React, TypeScript, Tailwind CSS 4, Open Sans, Radix UI / shadcn-style primitives, and Lucide icons. Dependency versions are pinned by `package-lock.json`.
+Next.js App Router, React, TypeScript, Tailwind CSS 4, GSAP / ScrollTrigger, Open Sans, Radix UI / shadcn-style primitives, and Lucide icons. Dependency versions are pinned by `package-lock.json`.

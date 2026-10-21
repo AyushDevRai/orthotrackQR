@@ -11,7 +11,7 @@ export const brand = {
 
 export const media = {
   hero: { image: "/images/hero-walk.webp", video: "" },
-  story: { poster: "/images/everyday-walk.webp", video: "" },
+  story: { poster: "/images/motion-poster.jpg", video: "/media/orthotrack-motion.mp4" },
   detail: "/images/track-detail.webp",
   layers: "/images/surface-layers.webp",
 };
