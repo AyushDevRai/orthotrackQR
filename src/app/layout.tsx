@@ -6,6 +6,7 @@ import "@fontsource/open-sans/latin-600.css";
 import "@fontsource/open-sans/latin-700.css";
 import "./globals.css";
 import "./experience.css";
+import "./layer-system.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://orthotrack-everyday.hazyfawn32.chatgpt.site"),

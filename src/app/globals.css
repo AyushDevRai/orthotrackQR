@@ -48,8 +48,8 @@ button svg, a svg { flex-shrink: 0; }
 .text-link:hover svg { transform: translate(3px,-2px); }
 .site-header { position: sticky; top: 0; z-index: 40; background: #ffffffed; backdrop-filter: blur(18px); border-bottom: 1px solid #eceee650; }
 .nav-inner { max-width: 1440px; width: calc(100% - 112px); margin: auto; height: 95px; display: flex; align-items: center; justify-content: space-between; }
-.brand-logo { display: flex; flex-direction: column; width: 163px; gap: 4px; }
-.brand-logo img { width: 163px; height: auto; mix-blend-mode: multiply; }
+.brand-logo { display: flex; flex-direction: column; width: 163px; gap: 4px; background: transparent !important; }
+.brand-logo img { width: 163px; height: auto; }
 .brand-logo > span { font-size: 7px; letter-spacing: 2.1px; margin-left: 9px; color: #51564b; }
 .desktop-nav { display: flex; gap: 33px; padding-left: 80px; }
 .desktop-nav a { font-size: 11px; color: #676c60; transition: color .2s; }

@@ -10,17 +10,17 @@ export const brand = {
 };
 
 export const media = {
-  hero: { image: "/images/hero-walk.webp", video: "" },
+  hero: { image: "/images/hero-park-runners.jpg", video: "" },
   story: { poster: "/images/motion-poster.jpg", video: "/media/orthotrack-motion.mp4" },
   detail: "/images/track-detail.webp",
   layers: "/images/surface-layers.webp",
 };
 
 export const spaces = [
-  { id: "parks", title: "Parks & public spaces", short: "Public parks", image: "/images/park.webp", heading: "A little more life. In every park.", description: "Turn a daily route into a place people look forward to. A dedicated, cushioned walking surface brings everyday movement into the heart of your public space.", tags: ["Municipal parks", "Public walking paths", "Community wellness"] },
-  { id: "communities", title: "Residential communities", short: "Communities", image: "/images/community.webp", heading: "Your neighbourhood. A little more connected.", description: "Morning walks, evening conversations, and familiar faces. Give residents a welcoming route for movement, right outside their door.", tags: ["RWAs & housing societies", "Residential developments", "Shared outdoor spaces"] },
-  { id: "campuses", title: "Schools & campuses", short: "Campuses", image: "/images/campus.webp", heading: "Make movement part of the everyday.", description: "Create an inviting route around learning and working spaces, designed for walking and light recreational activity at an individual pace.", tags: ["School grounds", "Institutional campuses", "Recreation areas"] },
-  { id: "wellness", title: "Wellness spaces", short: "Wellness spaces", image: "/images/wellness.webp", heading: "A space to pause. A reason to move.", description: "Connect landscaped spaces with a thoughtfully finished wellness path. A setting for unhurried walks, fresh air, and time for yourself.", tags: ["Wellness arenas", "Landscaped paths", "Outdoor leisure"] },
+  { id: "parks", title: "Parks & public spaces", short: "Public parks", image: "/images/belong-park.jpg", heading: "A little more life. In every park.", description: "Turn a daily route into a place people look forward to. A dedicated, cushioned walking surface brings everyday movement into the heart of your public space.", tags: ["Municipal parks", "Public walking paths", "Community wellness"] },
+  { id: "communities", title: "Residential communities", short: "Communities", image: "/images/belong-community.jpg", heading: "Your neighbourhood. A little more connected.", description: "Morning walks, evening conversations, and familiar faces. Give residents a welcoming route for movement, right outside their door.", tags: ["RWAs & housing societies", "Residential developments", "Shared outdoor spaces"] },
+  { id: "campuses", title: "Schools & campuses", short: "Campuses", image: "/images/belong-campus.jpg", heading: "Make movement part of the everyday.", description: "Create an inviting route around learning and working spaces, designed for walking and light recreational activity at an individual pace.", tags: ["School grounds", "Institutional campuses", "Recreation areas"] },
+  { id: "wellness", title: "Wellness spaces", short: "Wellness spaces", image: "/images/belong-wellness.jpg", heading: "A space to pause. A reason to move.", description: "Connect landscaped spaces with a thoughtfully finished wellness path. A setting for unhurried walks, fresh air, and time for yourself.", tags: ["Wellness arenas", "Landscaped paths", "Outdoor leisure"] },
 ];
 
 export const layers = [
