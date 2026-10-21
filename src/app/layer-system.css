@@ -236,9 +236,9 @@
   .otl-root .otl-li{min-height:40px;padding:4px 10px 4px 4px;flex:none}
   .otl-root .otl-li-swatch{width:28px;height:28px}
   .otl-root .otl-li-name{font-size:12px}
-  .otl-root .otl-viz{min-height:220px;--s:clamp(110px, min(46vw, 23svh), 220px)}
+  .otl-root .otl-viz{min-height:220px;--s:clamp(110px, min(46vw, 23svh), 220px);cursor:default!important;touch-action:pan-y!important}
   .otl-root .otl-tags{display:none}
-  .otl-root .otl-hint{font-size:10px}
+  .otl-root .otl-hint{display:none!important}
   .otl-root .otl-controls{bottom:0;gap:8px}
   .otl-root .otl-btn{min-height:40px;padding:0 14px;font-size:12px}
   .otl-root .otl-toast{bottom:50px;font-size:12px}

@@ -241,9 +241,13 @@ export default function LayerSystem3D() {
     }, 120);
   }, [built, count, isExploded, triggerToast]);
 
-  // Pointer drag to rotate
+  // Pointer drag to rotate (disabled on mobile screen)
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest("button")) return;
+    // Disable rotate feature on mobile screen
+    if (typeof window !== "undefined" && (window.innerWidth <= 768 || e.pointerType === "touch")) {
+      return;
+    }
     rotState.current.isDragging = true;
     rotState.current.dragStartX = e.clientX;
     rotState.current.dragStartY = e.clientY;
@@ -257,6 +261,10 @@ export default function LayerSystem3D() {
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!rotState.current.isDragging) return;
+    if (typeof window !== "undefined" && (window.innerWidth <= 768 || e.pointerType === "touch")) {
+      rotState.current.isDragging = false;
+      return;
+    }
     const dx = e.clientX - rotState.current.dragStartX;
     const dy = e.clientY - rotState.current.dragStartY;
     rotState.current.dragRZ = dx * 0.35;
@@ -279,6 +287,12 @@ export default function LayerSystem3D() {
 
   const applyRotation = () => {
     if (!rotRef.current) return;
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+    if (isMobile) {
+      rotRef.current.style.setProperty("--rx", "58deg");
+      rotRef.current.style.setProperty("--rz", "-42deg");
+      return;
+    }
     const s = rotState.current;
     const sway = s.isDragging ? 0 : Math.sin(s.swayT / 2600) * 4.5;
     rotRef.current.style.setProperty("--rx", `${s.rx + s.dragRX}deg`);

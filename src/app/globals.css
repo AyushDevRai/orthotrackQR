@@ -336,7 +336,7 @@ button svg, a svg { flex-shrink: 0; }
   .nav-inner { height: 77px; }
   .brand-logo,.brand-logo img { width: 142px; }
   .brand-logo > span { font-size: 6px; letter-spacing: 1.8px; }
-  .desktop-nav,.desktop-cta { display: none; }
+  .desktop-nav,.desktop-cta,.nav-catalogue-link,.nav-primary-cta { display: none !important; }
   .mobile-menu-button { display: block; }
   .mobile-nav { display: flex; flex-direction: column; padding: 7px 26px 22px; border-top: 1px solid #eff1e8; box-shadow: 0 12px 14px #22301a06; }
   .mobile-nav > a { font-size: 13px; padding: 17px 0; display: flex; justify-content: space-between; color: #667457; border-bottom: 1px solid #eff1e8; }

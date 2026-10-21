@@ -302,6 +302,13 @@ body { background: var(--track-paper); }
   .desktop-nav {
     display: none;
   }
+  .nav-catalogue-link,
+  .nav-primary-cta {
+    display: none !important;
+  }
+  .nav-actions {
+    gap: 0;
+  }
   .mobile-menu-button {
     display: flex;
   }
@@ -554,49 +561,189 @@ body { background: var(--track-paper); }
 .hard-mode .surface-top { background: #9b9e8e; border-color: #b6b9aa; }
 .hard-mode .surface-top::before,.hard-mode .surface-top::after { opacity: 0; }
 .hard-mode .surface-base { height: 30px; }
-.wellbeing-section { position: relative; padding-block: 65px 42px; background: #e8ebddbd; border-block: 1px solid #dfe3d2; }
+.wellbeing-section { position: relative; padding-block: 70px 48px; background: #e8ebddbd; border-block: 1px solid #dfe3d2; }
 .wellbeing-top { display: flex; align-items: flex-start; gap: 25px; }
 .wellbeing-top .section-label { font-size: 7px; }
 .wellbeing-top h2 { font-size: clamp(35px,3.8vw,53px); line-height: 1.16; font-weight: 400; letter-spacing: -2.1px; margin-top: 15px; }
 .wellbeing-top h2 > span { color: #879477; }
-.wellbeing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 85px; align-items: start; margin-top: 40px; }
-.body-panel { position: sticky; top: 145px; height: min(70svh,630px); min-height: 490px; background: #f9f8f0; overflow: hidden; border: 1px solid #d9dfc9; border-radius: 12px; }
-.body-panel-top { position: absolute; top: 24px; left: 25px; right: 25px; display: flex; justify-content: space-between; font-size: 6px; letter-spacing: 1.5px; color: #899274; z-index: 2; }
-.body-panel-top > span:last-child { color: #bc6c47; }
-.body-illustration { position: absolute; top: 38px; bottom: 82px; left: 8%; right: 8%; }
-.body-photo-current { object-fit: contain; mix-blend-mode: multiply; animation: body-img-fade .45s ease-out; }
-@keyframes body-img-fade {
-  from { opacity: 0.3; transform: scale(0.97); }
-  to { opacity: 1; transform: scale(1); }
+
+/* Fixed 3-card grid with stationary images */
+.wellbeing-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  align-items: stretch;
+  margin-top: 44px;
 }
-.body-orbit { width: 370px; height: 370px; border: 1px dashed #d8ddc9; border-radius: 50%; position: absolute; left: calc(50% - 185px); top: calc(50% - 200px); }
-.body-orbit::after { content: ""; position: absolute; inset: 25px; border: 1px solid #e7e8da; border-radius: 50%; }
-.body-target { position: absolute; width: 22px; height: 22px; border: 1px solid #ee4b27; border-radius: 50%; box-shadow: 0 0 0 7px #f3663817,0 0 0 15px #f366380a; opacity: 0; transition: opacity .5s; }
-.body-target::after { content: ""; inset: -10px; position: absolute; border: 1px solid #ee4b2750; border-radius: 50%; animation: joint-pulse 2s ease-out infinite; }
-.knee-left { top: 68%; left: 36%; }
-.knee-right { top: 68%; right: 36%; }
-.heart-target { top: 48%; left: 47%; }
-.spine-target { top: 60%; left: 47%; }
-.body-knees .knee-left,.body-knees .knee-right,.body-heart .heart-target,.body-spine .spine-target { opacity: 1; }
-.body-callout { position: absolute; bottom: 62px; left: 24px; right: 24px; display: flex; gap: 15px; align-items: center; color: #d8683e; background: #f0f1e5ed; border: 1px solid #dfe1d2; border-radius: 7px; padding: 16px 18px; animation: soft-in .4s; }
-.body-callout strong { display: block; font-size: 11px; color: #5b6b47; font-weight: 500; }
-.body-callout small { display: block; margin-top: 5px; font-size: 8px; color: #939c83; }
-.body-panel-bottom { position: absolute; bottom: 22px; left: 25px; right: 25px; display: flex; justify-content: space-between; gap: 10px; font-size: 5px; color: #a0a88e; letter-spacing: 1px; }
-.body-scroll { display: flex; align-items: center; gap: 7px; color: #a7694b; }
-.wellbeing-step { min-height: 66svh; display: flex; flex-direction: column; justify-content: center; padding: 55px 0; border-bottom: 1px solid #cbd3be; opacity: .45; transition: opacity .5s; }
-.wellbeing-step:last-child { border: 0; }
-.wellbeing-step.active { opacity: 1; }
-.wellbeing-index { display: flex; align-items: center; gap: 12px; font-size: 7px; letter-spacing: 1.3px; color: #8c9879; }
-.wellbeing-index > i { display: block; width: 22px; height: 1px; background: #adb99a; }
-.wellbeing-step.active .wellbeing-index { color: #bb603d; }
-.wellbeing-step h3 { font-size: 44px; line-height: 1.15; letter-spacing: -1.8px; font-weight: 400; margin-top: 24px; }
-.wellbeing-step h3 > span:last-child { color: #7f916a; }
-.wellbeing-step > p { font-size: 13px; line-height: 1.95; color: #79856a; max-width: 420px; margin-top: 25px; }
-.wellbeing-takeaway { display: flex; align-items: flex-start; gap: 12px; font-size: 9px; color: #7a8b65; line-height: 1.9; margin-top: 24px; max-width: 390px; padding: 14px 16px; border-left: 2px solid #a3af8f; background: #edf0e3a8; }
-.wellbeing-takeaway svg { flex-shrink: 0; margin-top: 3px; }
-.wellbeing-step > a { width: fit-content; margin-top: 24px; font-size: 10px; }
+
+.wellbeing-card {
+  display: flex;
+  flex-direction: column;
+  background: #fbfbf6;
+  border: 1px solid #d9dfc9;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(35, 42, 28, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wellbeing-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(35, 42, 28, 0.08);
+}
+
+.wellbeing-card-media {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #eceee2;
+  overflow: hidden;
+}
+
+.wellbeing-fixed-img {
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  transition: transform 0.35s ease;
+}
+
+.wellbeing-card:hover .wellbeing-fixed-img {
+  transform: scale(1.03);
+}
+
+.wellbeing-media-top {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.wellbeing-badge {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--orange);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #eed8ce;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.wellbeing-target-tag {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  color: #556247;
+  background: rgba(240, 243, 232, 0.9);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.wellbeing-card-caption {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #313a26;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(216, 222, 203, 0.9);
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(35, 42, 28, 0.06);
+  z-index: 2;
+}
+
+.wellbeing-card-caption svg {
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+.wellbeing-card-body {
+  padding: 24px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.wellbeing-card-body .wellbeing-index {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 7.5px;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.wellbeing-card-body .wellbeing-index > i {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: #cbd5be;
+}
+
+.wellbeing-card-body h3 {
+  font-size: 24px;
+  line-height: 1.22;
+  letter-spacing: -0.8px;
+  font-weight: 400;
+  color: #1e2417;
+  margin: 0 0 14px;
+}
+
+.wellbeing-card-body h3 > span:last-child {
+  color: #798864;
+}
+
+.wellbeing-card-body p {
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #69745a;
+  margin: 0 0 20px;
+  flex: 1;
+}
+
+.wellbeing-card-body .wellbeing-takeaway {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 9.5px;
+  color: #5d6c49;
+  line-height: 1.7;
+  padding: 12px 14px;
+  border-left: 2.5px solid var(--orange);
+  background: #edf0e2;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 22px;
+}
+
+.wellbeing-card-body .wellbeing-takeaway svg {
+  color: var(--orange);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.wellbeing-card-action {
+  margin-top: auto;
+}
+
+.wellbeing-card-action a {
+  font-size: 11px;
+  font-weight: 600;
+}
+
 .health-source { display: inline-flex; align-items: center; gap: 7px; color: #7b8b65; }
-.wellbeing-note { font-size: 8px; line-height: 1.9; color: #929c81; margin-top: 24px; max-width: 850px; text-align: center; }
+.wellbeing-note { font-size: 8px; line-height: 1.9; color: #929c81; margin-top: 28px; max-width: 850px; text-align: center; }
 .experience .engineering-section { background: #f6f2e7b0; border-bottom: 1px solid #dcdcc9; }
 .experience .engineering-heading { position: relative; padding-left: 77px; }
 .engineering-number { position: absolute; left: 0; top: 0; }
@@ -930,30 +1077,14 @@ body { background: var(--track-paper); }
   .wellbeing-top > div { flex: 1; }
   .wellbeing-top .section-label { font-size: 5px; letter-spacing: .7px; }
   .wellbeing-top h2 { font-size: 31px; letter-spacing: -1.3px; margin-top: 12px; }
-  .wellbeing-grid { display: flex; flex-direction: column; gap: 0; margin-top: 25px; }
-  .body-panel { z-index: 3; top: 115px; width: 100%; height: 250px; min-height: 0; border-radius: 8px; box-shadow: 0 12px 20px #454d3212; }
-  .body-panel-top { top: 17px; left: 18px; right: 18px; font-size: 5px; letter-spacing: 1px; }
-  .body-illustration { top: 25px; bottom: 15px; left: 12%; right: 47%; }
-  .body-orbit { width: 205px; height: 205px; left: 4%; top: 26px; }
-  .body-callout { left: auto; right: 13px; width: 47%; bottom: 52px; padding: 12px; gap: 9px; flex-direction: column; align-items: flex-start; }
-  .body-callout strong { font-size: 10px; line-height: 1.6; }
-  .body-callout small { font-size: 7px; line-height: 1.6; }
-  .body-panel-bottom { bottom: 16px; left: auto; right: 17px; font-size: 4px; max-width: 145px; }
-  .body-panel-bottom > span:first-child { display: none; }
-  .body-target { width: 12px; height: 12px; box-shadow: 0 0 0 4px #f3663817,0 0 0 9px #f366380a; }
-  .body-target::after { inset: -5px; }
-  .knee-left { top: 70%; left: 28%; }
-  .knee-right { top: 70%; right: 22%; }
-  .heart-target { top: 23%; left: 40%; }
-  .mind-target { top: 4%; left: 44%; }
-  .wellbeing-steps { width: 100%; }
-  .wellbeing-step { min-height: 66svh; padding: 38px 10px 35px; scroll-margin-top: 380px; }
-  .wellbeing-step h3 { font-size: 35px; margin-top: 20px; letter-spacing: -1.4px; }
-  .wellbeing-index { font-size: 6px; gap: 8px; letter-spacing: 1px; }
-  .wellbeing-step > p { font-size: 12px; margin-top: 20px; }
-  .wellbeing-takeaway { font-size: 8px; margin-top: 20px; padding: 12px; }
-  .wellbeing-step > a { font-size: 9px; margin-top: 20px; }
-  .wellbeing-note { font-size: 7px; text-align: left; margin-top: 10px; padding-inline: 10px; }
+  .wellbeing-cards-grid { grid-template-columns: 1fr; gap: 24px; margin-top: 25px; }
+  .wellbeing-card { border-radius: 14px; }
+  .wellbeing-card-media { height: 210px; }
+  .wellbeing-card-body { padding: 20px 18px 22px; }
+  .wellbeing-card-body h3 { font-size: 21px; margin-bottom: 10px; }
+  .wellbeing-card-body p { font-size: 12px; margin-bottom: 16px; }
+  .wellbeing-card-body .wellbeing-takeaway { font-size: 8.5px; padding: 10px 12px; margin-bottom: 16px; }
+  .wellbeing-note { font-size: 7px; text-align: left; margin-top: 14px; padding-inline: 10px; }
   .experience .engineering-heading { padding-left: 52px; }
   .experience .engineering-heading .section-label { font-size: 5px; }
   .experience .engineering-heading h2 { font-size: 31px; margin-top: 12px; letter-spacing: -1.3px; }
