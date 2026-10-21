@@ -567,7 +567,58 @@ body { background: var(--track-paper); }
 .wellbeing-top h2 { font-size: clamp(35px,3.8vw,53px); line-height: 1.16; font-weight: 400; letter-spacing: -2.1px; margin-top: 15px; }
 .wellbeing-top h2 > span { color: #879477; }
 
-/* Fixed 3-card grid with stationary images */
+/* ==========================================================
+   Wellbeing Section (Desktop/Laptop On-Scroll Scrollytelling vs Smartphone Cards)
+   ========================================================== */
+.wellbeing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 85px; align-items: start; margin-top: 40px; }
+
+/* Desktop & Laptop view: Visible by default */
+.wellbeing-desktop-view {
+  display: grid;
+}
+
+/* Smartphone card view: Hidden by default on desktop, laptop, and larger screens */
+.wellbeing-mobile-view {
+  display: none !important;
+}
+
+.body-panel { position: sticky; top: 145px; height: min(70svh,630px); min-height: 490px; background: #f9f8f0; overflow: hidden; border: 1px solid #d9dfc9; border-radius: 12px; }
+.body-panel-top { position: absolute; top: 24px; left: 25px; right: 25px; display: flex; justify-content: space-between; font-size: 6px; letter-spacing: 1.5px; color: #899274; z-index: 2; }
+.body-panel-top > span:last-child { color: #bc6c47; }
+.body-illustration { position: absolute; top: 38px; bottom: 82px; left: 8%; right: 8%; }
+.body-photo-current { object-fit: contain; mix-blend-mode: multiply; animation: body-img-fade .45s ease-out; }
+@keyframes body-img-fade {
+  from { opacity: 0.3; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+.body-orbit { width: 370px; height: 370px; border: 1px dashed #d8ddc9; border-radius: 50%; position: absolute; left: calc(50% - 185px); top: calc(50% - 200px); }
+.body-orbit::after { content: ""; position: absolute; inset: 25px; border: 1px solid #e7e8da; border-radius: 50%; }
+.body-target { position: absolute; width: 22px; height: 22px; border: 1px solid #ee4b27; border-radius: 50%; box-shadow: 0 0 0 7px #f3663817,0 0 0 15px #f366380a; opacity: 0; transition: opacity .5s; }
+.body-target::after { content: ""; inset: -10px; position: absolute; border: 1px solid #ee4b2750; border-radius: 50%; animation: joint-pulse 2s ease-out infinite; }
+.knee-left { top: 68%; left: 36%; }
+.knee-right { top: 68%; right: 36%; }
+.heart-target { top: 48%; left: 47%; }
+.spine-target { top: 60%; left: 47%; }
+.body-knees .knee-left,.body-knees .knee-right,.body-heart .heart-target,.body-spine .spine-target { opacity: 1; }
+.body-callout { position: absolute; bottom: 62px; left: 24px; right: 24px; display: flex; gap: 15px; align-items: center; color: #d8683e; background: #f0f1e5ed; border: 1px solid #dfe1d2; border-radius: 7px; padding: 16px 18px; animation: soft-in .4s; }
+.body-callout strong { display: block; font-size: 11px; color: #5b6b47; font-weight: 500; }
+.body-callout small { display: block; margin-top: 5px; font-size: 8px; color: #939c83; }
+.body-panel-bottom { position: absolute; bottom: 22px; left: 25px; right: 25px; display: flex; justify-content: space-between; gap: 10px; font-size: 5px; color: #a0a88e; letter-spacing: 1px; }
+.body-scroll { display: flex; align-items: center; gap: 7px; color: #a7694b; }
+.wellbeing-step { min-height: 80svh; display: flex; flex-direction: column; justify-content: center; padding: 75px 0; border-bottom: 1px solid #cbd3be; opacity: .45; transition: opacity .5s; }
+.wellbeing-step:last-child { border: 0; }
+.wellbeing-step.active { opacity: 1; }
+.wellbeing-index { display: flex; align-items: center; gap: 12px; font-size: 7px; letter-spacing: 1.3px; color: #8c9879; }
+.wellbeing-index > i { display: block; width: 22px; height: 1px; background: #adb99a; }
+.wellbeing-step.active .wellbeing-index { color: #bb603d; }
+.wellbeing-step h3 { font-size: 44px; line-height: 1.15; letter-spacing: -1.8px; font-weight: 400; margin-top: 24px; }
+.wellbeing-step h3 > span:last-child { color: #7f916a; }
+.wellbeing-step > p { font-size: 13px; line-height: 1.95; color: #79856a; max-width: 420px; margin-top: 25px; }
+.wellbeing-takeaway { display: flex; align-items: flex-start; gap: 12px; font-size: 9px; color: #7a8b65; line-height: 1.9; margin-top: 24px; max-width: 390px; padding: 14px 16px; border-left: 2px solid #a3af8f; background: #edf0e3a8; }
+.wellbeing-takeaway svg { flex-shrink: 0; margin-top: 3px; }
+.wellbeing-step > a { width: fit-content; margin-top: 24px; font-size: 10px; }
+
+/* Smartphone Card View (Active on small screens only) */
 .wellbeing-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -740,6 +791,15 @@ body { background: var(--track-paper); }
 .wellbeing-card-action a {
   font-size: 11px;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .wellbeing-desktop-view {
+    display: none !important;
+  }
+  .wellbeing-mobile-view {
+    display: grid !important;
+  }
 }
 
 .health-source { display: inline-flex; align-items: center; gap: 7px; color: #7b8b65; }
@@ -956,6 +1016,7 @@ body { background: var(--track-paper); }
   .experience .hero { min-height: 730px; }
   .experience .hero h1 { font-size: 96px; }
   .experience .hero-photo { height: 520px; }
+  .wellbeing-step { min-height: 85svh; padding: 90px 0; }
 }
 @media (max-width:1100px) {
   .journey-guide-inner { width: calc(100% - 64px); }
@@ -1077,6 +1138,8 @@ body { background: var(--track-paper); }
   .wellbeing-top > div { flex: 1; }
   .wellbeing-top .section-label { font-size: 5px; letter-spacing: .7px; }
   .wellbeing-top h2 { font-size: 31px; letter-spacing: -1.3px; margin-top: 12px; }
+  .wellbeing-desktop-view { display: none !important; }
+  .wellbeing-mobile-view { display: grid !important; }
   .wellbeing-cards-grid { grid-template-columns: 1fr; gap: 24px; margin-top: 25px; }
   .wellbeing-card { border-radius: 14px; }
   .wellbeing-card-media { height: 210px; }

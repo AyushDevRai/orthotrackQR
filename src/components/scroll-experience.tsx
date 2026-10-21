@@ -317,8 +317,42 @@ const wellbeingSteps = [
 ];
 
 export function HealthJourney() {
+  const [active, setActive] = useState(0);
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // ScrollTrigger active for desktop / laptop screens
+    // Each photo triggers cleanly when its respective sub-section reaches the focal area
+    const elements = root.current?.querySelectorAll<HTMLElement>(".wellbeing-desktop-view .wellbeing-step");
+    if (!elements || elements.length === 0) return;
+
+    const triggers = Array.from(elements).map((element, i) => {
+      if (i === 0) {
+        return ScrollTrigger.create({
+          trigger: element,
+          start: "top 60%",
+          end: "bottom 48%",
+          onEnter: () => setActive(0),
+          onEnterBack: () => setActive(0),
+        });
+      }
+      return ScrollTrigger.create({
+        trigger: element,
+        start: "top 48%",
+        end: "bottom 48%",
+        onEnter: () => setActive(i),
+        onLeaveBack: () => setActive(i - 1),
+        onEnterBack: () => setActive(i),
+      });
+    });
+
+    return () => triggers.forEach((t) => t.kill());
+  }, []);
+
+  const step = wellbeingSteps[active];
+
   return (
-    <section id="wellbeing" className="wellbeing-section">
+    <section id="wellbeing" ref={root} className="wellbeing-section">
       <div className="wrap wellbeing-top">
         <span className="chapter-number">03</span>
         <div>
@@ -328,26 +362,103 @@ export function HealthJourney() {
         <span className="chapter-aside">FOLLOW THE TRACK.<br />FEEL THE PURPOSE.</span>
       </div>
 
-      <div className="wrap wellbeing-cards-grid">
+      {/* Desktop / Laptop Screen: Interactive Sticky Panel on Scroll */}
+      <div className="wrap wellbeing-grid wellbeing-desktop-view">
+        <div className={cn("body-panel", `body-${step.point}`)}>
+          <div className="body-panel-top">
+            <span>YOUR BODY. YOUR EVERYDAY.</span>
+            <span>0{active + 1} / 03</span>
+          </div>
+          <div className="body-orbit" />
+          <div className="body-illustration">
+            <Image
+              key={step.image}
+              src={step.image}
+              alt={step.caption}
+              fill
+              sizes="380px"
+              priority
+              className="body-photo-current"
+            />
+            <span className="body-target knee-left" />
+            <span className="body-target knee-right" />
+            <span className="body-target heart-target" />
+            <span className="body-target spine-target" />
+          </div>
+          <div className="body-callout" key={active}>
+            <step.icon size={21} />
+            <span>
+              <strong>{step.caption}</strong>
+              <small>{step.detail}</small>
+            </span>
+          </div>
+          <div className="body-panel-bottom">
+            <span>THOUGHTFUL SURFACES. EVERYDAY MOVEMENT.</span>
+            <span className="body-scroll">
+              SCROLL TO EXPLORE <ArrowDown size={13} />
+            </span>
+          </div>
+        </div>
+
+        <div className="wellbeing-steps">
+          {wellbeingSteps.map((item, i) => (
+            <article
+              key={item.tag}
+              className={cn("wellbeing-step", active === i && "active")}
+              onClick={() => setActive(i)}
+            >
+              <span className="wellbeing-index">0{i + 1} <i />{item.tag}</span>
+              <h3>
+                {item.title.split("\n").map((line, index) => (
+                  <span key={line}>
+                    {line}
+                    {index === 0 && <br />}
+                  </span>
+                ))}
+              </h3>
+              <p>{item.text}</p>
+              <div className="wellbeing-takeaway">
+                <item.icon size={18} />
+                <span>{item.foot}</span>
+              </div>
+              {i === 0 ? (
+                <a href="#engineering" className="text-link">
+                  Explore the cushion below <ArrowUpRight size={16} />
+                </a>
+              ) : i === 1 ? (
+                <a
+                  className="health-source"
+                  href="https://www.who.int/news-room/fact-sheets/detail/physical-activity"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Why movement matters · WHO <ArrowUpRight size={12} />
+                </a>
+              ) : (
+                <a href="#durability" className="text-link">
+                  Built for the long run <ArrowRight size={16} />
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* Smartphone (Small Screen) View: Clean Stationary Cards */}
+      <div className="wrap wellbeing-cards-grid wellbeing-mobile-view">
         {wellbeingSteps.map((item, i) => (
-          <article key={item.tag} className="wellbeing-card">
-            {/* Fixed Image Container */}
+          <article key={`m-${item.tag}`} className="wellbeing-card">
             <div className="wellbeing-card-media">
               <Image
                 src={item.image}
                 alt={item.caption}
                 fill
-                sizes="(max-width: 900px) 92vw, 30vw"
-                priority={i === 0}
+                sizes="92vw"
                 className="wellbeing-fixed-img"
               />
               <div className="wellbeing-media-top">
-                <span className="wellbeing-badge">
-                  0{i + 1} / 03
-                </span>
-                <span className="wellbeing-target-tag">
-                  {item.point.toUpperCase()}
-                </span>
+                <span className="wellbeing-badge">0{i + 1} / 03</span>
+                <span className="wellbeing-target-tag">{item.point.toUpperCase()}</span>
               </div>
               <div className="wellbeing-card-caption">
                 <item.icon size={16} />
@@ -355,7 +466,6 @@ export function HealthJourney() {
               </div>
             </div>
 
-            {/* Card Content */}
             <div className="wellbeing-card-body">
               <span className="wellbeing-index">0{i + 1} <i />{item.tag}</span>
               <h3>

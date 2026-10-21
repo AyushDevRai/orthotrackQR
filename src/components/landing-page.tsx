@@ -27,6 +27,9 @@ interface TryTheTrackDialogProps {
   triggerSize?: "default" | "sm" | "icon";
   triggerClassName?: string;
   onTriggerClick?: () => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  showTrigger?: boolean;
 }
 
 function TryTheTrackDialog({
@@ -35,8 +38,21 @@ function TryTheTrackDialog({
   triggerSize = "default",
   triggerClassName,
   onTriggerClick,
+  open: controlledOpen,
+  onOpenChange: controlledOnOpenChange,
+  showTrigger = true,
 }: TryTheTrackDialogProps) {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = typeof controlledOpen === "boolean";
+  const open = isControlled ? controlledOpen : internalOpen;
+  const setOpen = (val: boolean) => {
+    if (isControlled) {
+      controlledOnOpenChange?.(val);
+    } else {
+      setInternalOpen(val);
+    }
+  };
+
   const [submitted, setSubmitted] = useState(false);
   const [data, setData] = useState<{
     name: string;
@@ -74,17 +90,19 @@ function TryTheTrackDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button
-          variant={triggerVariant}
-          size={triggerSize}
-          className={triggerClassName}
-          onClick={onTriggerClick}
-        >
-          <span>{triggerText}</span>
-          <ArrowUpRight size={triggerSize === "sm" ? 14 : 18} />
-        </Button>
-      </DialogTrigger>
+      {showTrigger && (
+        <DialogTrigger asChild>
+          <Button
+            variant={triggerVariant}
+            size={triggerSize}
+            className={triggerClassName}
+            onClick={onTriggerClick}
+          >
+            <span>{triggerText}</span>
+            <ArrowUpRight size={triggerSize === "sm" ? 14 : 18} />
+          </Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="try-track-dialog">
         {submitted ? (
           <div className="try-track-success">
@@ -743,15 +761,73 @@ function Footer() {
 
 export default function LandingPage() {
   const [showSticky, setShowSticky] = useState(false);
+  const [autoModalOpen, setAutoModalOpen] = useState(false);
+  const hasAutoOpened = useRef(false);
   const rootRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const elements = rootRef.current?.querySelectorAll(".section-heading, .benefit-card, .engineering-heading, .engineering-grid, .space-panel, .owners-grid, .faq-intro, .contact-section");
     const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } }), { threshold: 0.09 });
     elements?.forEach(el => { el.classList.add("reveal"); observer.observe(el); });
+
     const hero = document.querySelector(".hero");
     const heroObserver = new IntersectionObserver(([entry]) => setShowSticky(!entry.isIntersecting), { threshold: 0 });
     if (hero) heroObserver.observe(hero);
-    return () => { observer.disconnect(); heroObserver.disconnect(); };
+
+    // Auto-open Try the Track modal when arriving at the Wellbeing section
+    const wellbeing = document.getElementById("wellbeing");
+    let wellbeingObserver: IntersectionObserver | null = null;
+    if (wellbeing) {
+      wellbeingObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !hasAutoOpened.current) {
+            hasAutoOpened.current = true;
+            setTimeout(() => {
+              setAutoModalOpen(true);
+            }, 600);
+          }
+        },
+        { threshold: 0.25 }
+      );
+      wellbeingObserver.observe(wellbeing);
+    }
+
+    return () => {
+      observer.disconnect();
+      heroObserver.disconnect();
+      wellbeingObserver?.disconnect();
+    };
   }, []);
-  return <div id="top" ref={rootRef} className="experience"><a href="#main" className="skip-link">Skip to content</a><Navigation /><main id="main"><PageTrack /><Hero /><ExpandingFilm /><BenefitStrip /><ImpactLab /><HealthJourney /><Engineering /><Durability /><Spaces /><ForDecisionMakers /><Questions /><Contact /></main><Footer /><div className={cn("mobile-sticky", showSticky && "visible")}><span>Comfort starts underfoot.<small>Follow the track. Find your next step.</small></span><TryTheTrackDialog triggerText="Try your track" triggerSize="sm" /></div></div>;
+
+  return (
+    <div id="top" ref={rootRef} className="experience">
+      <a href="#main" className="skip-link">Skip to content</a>
+      <Navigation />
+      <main id="main">
+        <PageTrack />
+        <Hero />
+        <ExpandingFilm />
+        <BenefitStrip />
+        <ImpactLab />
+        <HealthJourney />
+        <Engineering />
+        <Durability />
+        <Spaces />
+        <ForDecisionMakers />
+        <Questions />
+        <Contact />
+      </main>
+      <Footer />
+      <div className={cn("mobile-sticky", showSticky && "visible")}>
+        <span>Comfort starts underfoot.<small>Follow the track. Find your next step.</small></span>
+        <TryTheTrackDialog triggerText="Try your track" triggerSize="sm" />
+      </div>
+      {/* Auto-opening Try the Track modal when arriving at Wellbeing */}
+      <TryTheTrackDialog
+        showTrigger={false}
+        open={autoModalOpen}
+        onOpenChange={setAutoModalOpen}
+      />
+    </div>
+  );
 }
