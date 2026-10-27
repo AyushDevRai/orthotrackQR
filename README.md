@@ -41,7 +41,7 @@ The supplied ten-second, 1280 × 720 film has been optimised from 12.1 MB to 4.9
 
 The existing section components live in `src/components/landing-page.tsx`. The new chapter navigation, winding track, expanding film, cushioning demo, anatomy journey, and durability explorer live in `src/components/scroll-experience.tsx`. Base styling is in `src/app/globals.css`, and the sports-themed redesign is in `src/app/experience.css`. Reusable shadcn-style Button, Dialog, and Accordion primitives are in `src/components/ui/`, using Radix UI for focus management, keyboard navigation, and dialogs.
 
-Open Sans is bundled locally through `@fontsource/open-sans`; the page does not request fonts from Google.
+Inter is bundled locally through `@fontsource/inter`; the page does not request fonts from Google.
 
 ## Contact and enquiries
 
@@ -72,4 +72,4 @@ Copy prioritises cushioning, knee comfort, the benefits of regular movement, and
 
 ## Stack
 
-Next.js App Router, React, TypeScript, Tailwind CSS 4, GSAP / ScrollTrigger, Open Sans, Radix UI / shadcn-style primitives, and Lucide icons. Dependency versions are pinned by `package-lock.json`.
+Next.js App Router, React, TypeScript, Tailwind CSS 4, GSAP / ScrollTrigger, Inter, Radix UI / shadcn-style primitives, and Lucide icons. Dependency versions are pinned by `package-lock.json`.

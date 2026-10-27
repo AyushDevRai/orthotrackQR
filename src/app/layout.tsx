@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource/open-sans/latin-300.css";
-import "@fontsource/open-sans/latin-400.css";
-import "@fontsource/open-sans/latin-500.css";
-import "@fontsource/open-sans/latin-600.css";
-import "@fontsource/open-sans/latin-700.css";
+import "@fontsource/inter/latin-300.css";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/inter/latin-700.css";
+import "@fontsource/inter/latin-800.css";
 import "./globals.css";
 import "./experience.css";
 import "./layer-system.css";

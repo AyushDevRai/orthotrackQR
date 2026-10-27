@@ -4,13 +4,13 @@
   --color-brand: #ee4b27;
   --color-ink: #252820;
   --color-paper: #f7f7f2;
-  --font-sans: "Open Sans", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 :root { --orange: #ee4b27; --ink: #252820; --muted: #7d8176; --paper: #f7f7f2; --border: #e5e6de; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 105px; }
-body { margin: 0; background: #fff; color: var(--ink); font-family: "Open Sans", sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: #fff; color: var(--ink); font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 button, input, textarea, select { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
@@ -260,7 +260,7 @@ button svg, a svg { flex-shrink: 0; }
 .enquiry-form .button { width: 100%; }
 .enquiry-result { margin-top: 23px; }
 .result-check { background: #eff4e5; color: #788e5c; width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%; }
-.enquiry-result pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 220px; overflow-y: auto; background: #f8f9f4; padding: 19px; font: 10px/1.9 "Open Sans",sans-serif; color: #6c795e; border: 1px solid #e9ecdf; border-radius: 7px; margin: 20px 0; }
+.enquiry-result pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 220px; overflow-y: auto; background: #f8f9f4; padding: 19px; font: 10px/1.9 "Inter",system-ui,sans-serif; color: #6c795e; border: 1px solid #e9ecdf; border-radius: 7px; margin: 20px 0; }
 .result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
 .result-actions .button { font-size: 10px; gap: 16px; }
 .story-dialog { max-width: 850px; width: calc(100% - 40px); padding: 0; background: #273223; color: #fff; overflow: hidden; }
